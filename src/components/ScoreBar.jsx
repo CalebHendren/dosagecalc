@@ -1,7 +1,7 @@
 import { levelProgress } from '../lib/xp.js';
 
-// Session score summary. Values reset on page reload (each visit is a fresh
-// practice session).
+// Session score summary. Attempts and XP reset on page reload, while the
+// current and best streak persist across visits.
 export default function ScoreBar({ attempted, correct, streak, bestStreak, xp = 0, lastDelta = 0 }) {
   const pct = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
   const { level, into, size, pct: levelPct } = levelProgress(xp);
