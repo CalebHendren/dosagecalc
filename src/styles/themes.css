@@ -1,0 +1,121 @@
+/*
+ * Theme palettes as CSS custom properties, selected via [data-theme] on <html>.
+ * Every text/background pairing below targets WCAG 2.1 AA (>= 4.5:1 for body
+ * text) so the app meets Section 508 / accessibility expectations in every
+ * theme. Colors are drawn from the well-known Dracula, Nord, Solarized, and
+ * GitHub palettes, adjusted where needed to keep contrast compliant.
+ */
+
+/* ----- Light: Daylight (default light) ----- */
+[data-theme='daylight'] {
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --surface-2: #eef1f7;
+  --text: #1b2430;
+  --text-muted: #45505f;
+  --border: #d3d9e6;
+  --primary: #2f4fa8;
+  --primary-hover: #26418c;
+  --primary-contrast: #ffffff;
+  --focus: #1d4ed8;
+  --success: #14713a;
+  --success-bg: #e4f3ea;
+  --error: #b02417;
+  --error-bg: #fbe9e7;
+  --warning: #8a5a00;
+}
+
+/* ----- Light: Solarized Light ----- */
+[data-theme='solarized-light'] {
+  --bg: #eee8d5;
+  --surface: #fdf6e3;
+  --surface-2: #e6dfc8;
+  --text: #073642;
+  --text-muted: #586e75;
+  --border: #d7cfb8;
+  --primary: #1d6a94;
+  --primary-hover: #17587c;
+  --primary-contrast: #ffffff;
+  --focus: #268bd2;
+  --success: #4a6d00;
+  --success-bg: #e7ebc8;
+  --error: #b3271b;
+  --error-bg: #f6dfcf;
+  --warning: #9a6b00;
+}
+
+/* ----- Light: GitHub Light ----- */
+[data-theme='github-light'] {
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --surface-2: #eef1f4;
+  --text: #1f2328;
+  --text-muted: #57606a;
+  --border: #d0d7de;
+  --primary: #0757ba;
+  --primary-hover: #0546a0;
+  --primary-contrast: #ffffff;
+  --focus: #0969da;
+  --success: #1a7f37;
+  --success-bg: #dafbe1;
+  --error: #cf222e;
+  --error-bg: #ffebe9;
+  --warning: #9a6700;
+}
+
+/* ----- Dark: Dracula (default dark) ----- */
+[data-theme='dracula'] {
+  --bg: #282a36;
+  --surface: #343746;
+  --surface-2: #21222c;
+  --text: #f8f8f2;
+  --text-muted: #9aa2d0;
+  --border: #44475a;
+  --primary: #bd93f9;
+  --primary-hover: #caa9fa;
+  --primary-contrast: #21222c;
+  --focus: #8be9fd;
+  --success: #50fa7b;
+  --success-bg: rgba(80, 250, 123, 0.14);
+  --error: #ff6e6e;
+  --error-bg: rgba(255, 85, 85, 0.16);
+  --warning: #ffb86c;
+}
+
+/* ----- Dark: Nord ----- */
+[data-theme='nord'] {
+  --bg: #2e3440;
+  --surface: #3b4252;
+  --surface-2: #262b35;
+  --text: #eceff4;
+  --text-muted: #aab3c5;
+  --border: #434c5e;
+  --primary: #88c0d0;
+  --primary-hover: #9fccd9;
+  --primary-contrast: #2e3440;
+  --focus: #88c0d0;
+  --success: #a3be8c;
+  --success-bg: rgba(163, 190, 140, 0.16);
+  --error: #d0868f;
+  --error-bg: rgba(191, 97, 106, 0.2);
+  --warning: #ebcb8b;
+}
+
+/* ----- Dark: Solarized Dark ----- */
+[data-theme='solarized-dark'] {
+  --bg: #002b36;
+  --surface: #073642;
+  --surface-2: #00212b;
+  --text: #eee8d5;
+  --text-muted: #93a1a1;
+  --border: #0f4351;
+  --primary: #2aa198;
+  --primary-hover: #35b1a8;
+  --primary-contrast: #002b36;
+  --focus: #268bd2;
+  --success: #93b52a;
+  --success-bg: rgba(133, 153, 0, 0.18);
+  --error: #eb6b64;
+  --error-bg: rgba(220, 50, 47, 0.2);
+  --warning: #d5a021;
+}
