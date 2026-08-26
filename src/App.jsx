@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Header from './components/Header.jsx';
 import ScoreBar from './components/ScoreBar.jsx';
 import ProblemCard from './components/ProblemCard.jsx';
@@ -19,9 +19,38 @@ const INITIAL_SCORE = {
   lastDelta: 0, // XP change from the most recent action (+earned / −spent)
 };
 
+// The streak fields are persisted so a returning visitor keeps their progress;
+// the rest of the score (attempts, XP, last delta) stays per-session.
+const STREAK_KEY = 'dosagecalc.streaks';
+
+function loadInitialScore() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STREAK_KEY) || '{}');
+    return {
+      ...INITIAL_SCORE,
+      streak: Number.isFinite(saved.streak) ? saved.streak : 0,
+      bestStreak: Number.isFinite(saved.bestStreak) ? saved.bestStreak : 0,
+    };
+  } catch {
+    return { ...INITIAL_SCORE };
+  }
+}
+
 export default function App() {
   const { settings } = useSettings();
-  const [score, setScore] = useState(INITIAL_SCORE);
+  const [score, setScore] = useState(loadInitialScore);
+
+  // Persist the streaks whenever they change so they survive leaving the site.
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        STREAK_KEY,
+        JSON.stringify({ streak: score.streak, bestStreak: score.bestStreak }),
+      );
+    } catch {
+      /* storage unavailable — ignore */
+    }
+  }, [score.streak, score.bestStreak]);
 
   // `attemptCount` is the attempt number the problem was solved on, so the
   // number of failed attempts is one less. Failed attempts reduce the XP
