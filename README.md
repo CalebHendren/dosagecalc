@@ -25,6 +25,12 @@ as a desktop app with **Electron**.
   Solarized Dark bonus. Follows the OS light/dark preference by default and
   remembers your choice.
 - **Session scoring** — solved count, accuracy, and streaks.
+- **XP & levels** — earn XP for each solve, boosted by your streak and reduced
+  by failed attempts, and level up as you practice.
+- **Equation sheet** — a reference of every formula, on demand. Opening it
+  spends XP, so you learn to reach for it only when you need it.
+- **On-screen calculator** — a floating, draggable, collapsible calculator
+  (hidden by default on mobile).
 - **Accessibility first** (see below).
 
 ### Problem types
