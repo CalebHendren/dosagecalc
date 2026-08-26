@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Accessible dosage-calculation practice generator with worked solutions, configurable attempts, and light/dark themes."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23bd93f9'/%3E%3Ctext x='16' y='23' font-size='19' font-family='system-ui,sans-serif' font-weight='700' text-anchor='middle' fill='%2321222c'%3E%E2%84%9E%3C/text%3E%3C/svg%3E"
+    />
+    <title>Dosage Calc Practice</title>
+    <!--
+      The theme class is applied to <html> as early as possible so the page
+      does not flash the wrong colors before React mounts.
+    -->
+    <script>
+      (function () {
+        try {
+          var saved = JSON.parse(localStorage.getItem('dosagecalc.settings') || '{}');
+          var mode = saved.mode;
+          if (!mode || mode === 'system') {
+            mode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          var theme = mode === 'dark' ? (saved.darkTheme || 'dracula') : (saved.lightTheme || 'daylight');
+          document.documentElement.setAttribute('data-theme', theme);
+          document.documentElement.style.colorScheme = mode;
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'daylight');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
