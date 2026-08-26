@@ -4,6 +4,7 @@ import ScoreBar from './components/ScoreBar.jsx';
 import ProblemCard from './components/ProblemCard.jsx';
 import SettingsPanel from './components/SettingsPanel.jsx';
 import Footer from './components/Footer.jsx';
+import Calculator from './components/Calculator.jsx';
 import { useSettings } from './context/SettingsContext.jsx';
 import { useProblem } from './hooks/useProblem.js';
 
@@ -68,6 +69,7 @@ export default function App() {
         </main>
         <Footer />
       </div>
+      <Calculator />
     </>
   );
 }
