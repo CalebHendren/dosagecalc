@@ -63,6 +63,23 @@ export default function SettingsPanel() {
           </span>
         </div>
 
+        {/* Weighted (adaptive) mode */}
+        <div className="field">
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              checked={!!settings.weightedMode}
+              onChange={(e) => update({ weightedMode: e.target.checked })}
+            />
+            <span>Weighted mode (adaptive)</span>
+          </label>
+          <span className="hint">
+            Shows problem types you get right less often and ones you miss more
+            often. Types you haven’t seen in a while gradually return. Your
+            progress is remembered between sessions.
+          </span>
+        </div>
+
         {/* Problem types */}
         <div className="field">
           <span id="types-label" style={{ fontWeight: 600 }}>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Header from './components/Header.jsx';
 import ScoreBar from './components/ScoreBar.jsx';
 import ProblemCard from './components/ProblemCard.jsx';
@@ -6,6 +6,7 @@ import SettingsPanel from './components/SettingsPanel.jsx';
 import Footer from './components/Footer.jsx';
 import Calculator from './components/Calculator.jsx';
 import EquationSheet from './components/EquationSheet.jsx';
+import MilestoneNotice from './components/MilestoneNotice.jsx';
 import { useSettings } from './context/SettingsContext.jsx';
 import { useProblem } from './hooks/useProblem.js';
 import { XP_RULES, xpForSolve } from './lib/xp.js';
@@ -23,6 +24,9 @@ const INITIAL_SCORE = {
 // the rest of the score (attempts, XP, last delta) stays per-session.
 const STREAK_KEY = 'dosagecalc.streaks';
 
+// Streak length that triggers the "you're competent" milestone notice.
+const MILESTONE_STREAK = 100;
+
 function loadInitialScore() {
   try {
     const saved = JSON.parse(localStorage.getItem(STREAK_KEY) || '{}');
@@ -39,6 +43,22 @@ function loadInitialScore() {
 export default function App() {
   const { settings } = useSettings();
   const [score, setScore] = useState(loadInitialScore);
+  const [showMilestone, setShowMilestone] = useState(false);
+
+  // Fire the milestone notice when the streak first reaches 100, re-arming only
+  // after the streak drops back below it. A returning visitor whose saved streak
+  // is already at/over the milestone starts disarmed, so it does not re-fire on load.
+  const milestoneArmedRef = useRef(score.streak < MILESTONE_STREAK);
+  useEffect(() => {
+    if (score.streak >= MILESTONE_STREAK) {
+      if (milestoneArmedRef.current) {
+        setShowMilestone(true);
+        milestoneArmedRef.current = false;
+      }
+    } else {
+      milestoneArmedRef.current = true;
+    }
+  }, [score.streak]);
 
   // Persist the streaks whenever they change so they survive leaving the site.
   useEffect(() => {
@@ -90,7 +110,12 @@ export default function App() {
     submit,
     reveal,
     newProblem,
-  } = useProblem(settings.enabledTypes, settings.maxAttempts, { onSolved, onExhausted });
+  } = useProblem(
+    settings.enabledTypes,
+    settings.maxAttempts,
+    { onSolved, onExhausted },
+    settings.weightedMode,
+  );
 
   return (
     <>
@@ -120,6 +145,9 @@ export default function App() {
         <Footer />
       </div>
       <Calculator />
+      {showMilestone ? (
+        <MilestoneNotice streak={score.streak} onDismiss={() => setShowMilestone(false)} />
+      ) : null}
     </>
   );
 }
