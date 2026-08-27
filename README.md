@@ -11,8 +11,12 @@ as a desktop app with **Electron**.
 
 ## Features
 
-- **22 problem types across 6 categories** (see below), drawn from real dosage
-  worksheets plus common clinical calculations.
+- **38 problem types across 10 categories** (see below), drawn from real dosage
+  worksheets plus common nursing (NCLEX) and allied-health (PTCB) exam topics.
+- **Exam presets** — one-click bundles (NCLEX / Med-Math, Pharmacy Technician,
+  Critical Care, Pediatrics, Conversions, Everything) that set which types are
+  active; you can then mix and match any individual types. NCLEX / Med-Math is
+  enabled by default.
 - **Worked solutions** — every problem shows numbered steps and the final answer.
 - **Configurable attempts** — 1–10 or unlimited. The solution is revealed on a
   correct answer or when attempts run out; a "Reveal solution" button lets you
@@ -41,12 +45,16 @@ as a desktop app with **Electron**.
 
 | Category | Types |
 | --- | --- |
-| Conversions | kg → lb, lb → kg |
+| Conversions | kg → lb, lb → kg, metric mass (mcg/mg/g/kg), metric volume (mL ↔ L), household volume (tsp/tbsp/oz/cup ↔ mL), grains ↔ mg, temperature (°F ↔ °C) |
 | Concentration & dosing | units/mL → volume, weight-based dose (units/kg), weight-based dose (mg/kg) |
 | Percentage strength | g in mL → %, mg/mL → %, mg in mL → %, ratio → %, mg of drug in a % solution, mg of drug in a ratio solution |
 | Ratios | mg in mL → ratio, reduce a ratio, % → ratio, ratio → mg/mL, mL of a ratio to deliver a dose |
 | Dilution (V₁C₁ = V₂C₂) | final % after dilution, diluent needed to reach a target % |
 | Clinical calculations | tablets (Desired ÷ Have), liquid dose (D ÷ H × Q), IV rate (mL/hr), IV drip rate (gtt/min) |
+| Advanced IV & critical care | infusion time, mcg/kg/min drip → mL/hr, heparin drip (units/hr → mL/hr), rate re-titration |
+| Pediatric & BSA | mg/kg/day ÷ doses, safe dose range (max/day), BSA-based dose (mg/m²), body surface area (Mosteller) |
+| Reconstitution | volume to draw from a reconstituted vial |
+| Pharmacy calculations | alligation (mixing two strengths), days supply |
 
 ## Accessibility
 

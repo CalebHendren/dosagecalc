@@ -22,6 +22,27 @@ import {
   mlPerHour,
   gttPerMin,
 } from './clinical.js';
+import {
+  metricMass,
+  metricVolume,
+  householdVolume,
+  grainsToMg,
+  temperature,
+} from './units.js';
+import {
+  infusionTime,
+  mcgKgMinDrip,
+  heparinDrip,
+  titrationRate,
+} from './criticalcare.js';
+import {
+  pediatricMgKgDay,
+  safeDoseRange,
+  bsaDose,
+  bsaValue,
+} from './pediatric.js';
+import { reconstitution } from './reconstitution.js';
+import { alligation, daysSupply } from './pharmacy.js';
 import { pick } from '../random.js';
 import { pickWeighted } from '../weighting.js';
 
@@ -31,6 +52,11 @@ import { pickWeighted } from '../weighting.js';
 export const GENERATORS = [
   { id: 'kg-to-lbs', label: 'Kilograms → pounds', category: 'Conversions', generate: kgToLbs },
   { id: 'lbs-to-kg', label: 'Pounds → kilograms', category: 'Conversions', generate: lbsToKg },
+  { id: 'metric-mass', label: 'Metric mass (mcg/mg/g/kg)', category: 'Conversions', generate: metricMass },
+  { id: 'metric-volume', label: 'Metric volume (mL ↔ L)', category: 'Conversions', generate: metricVolume },
+  { id: 'household-volume', label: 'Household volume (tsp/tbsp/oz/cup ↔ mL)', category: 'Conversions', generate: householdVolume },
+  { id: 'grains-to-mg', label: 'Grains ↔ milligrams', category: 'Conversions', generate: grainsToMg },
+  { id: 'temperature', label: 'Temperature (°F ↔ °C)', category: 'Conversions', generate: temperature },
 
   { id: 'units-to-volume', label: 'Units/mL → volume to deliver', category: 'Concentration & dosing', generate: unitsToVolume },
   { id: 'weight-based-units', label: 'Weight-based dose (units/kg)', category: 'Concentration & dosing', generate: weightBasedUnits },
@@ -56,6 +82,21 @@ export const GENERATORS = [
   { id: 'liquid-d-over-h', label: 'Liquid dose (D ÷ H × Q)', category: 'Clinical calculations', generate: liquidDesiredOverHave },
   { id: 'ml-per-hour', label: 'IV rate (mL/hr)', category: 'Clinical calculations', generate: mlPerHour },
   { id: 'gtt-per-min', label: 'IV drip rate (gtt/min)', category: 'Clinical calculations', generate: gttPerMin },
+
+  { id: 'infusion-time', label: 'Infusion time (volume ÷ rate)', category: 'Advanced IV & critical care', generate: infusionTime },
+  { id: 'mcg-kg-min', label: 'Critical-care drip (mcg/kg/min → mL/hr)', category: 'Advanced IV & critical care', generate: mcgKgMinDrip },
+  { id: 'heparin-units-to-ml-hr', label: 'Heparin drip (units/hr → mL/hr)', category: 'Advanced IV & critical care', generate: heparinDrip },
+  { id: 'titration-rate', label: 'Re-titrate rate (behind schedule)', category: 'Advanced IV & critical care', generate: titrationRate },
+
+  { id: 'peds-mg-kg-day', label: 'Pediatric mg/kg/day ÷ doses', category: 'Pediatric & BSA', generate: pediatricMgKgDay },
+  { id: 'safe-dose-range', label: 'Safe dose range (max/day)', category: 'Pediatric & BSA', generate: safeDoseRange },
+  { id: 'bsa-dose', label: 'BSA-based dose (mg/m²)', category: 'Pediatric & BSA', generate: bsaDose },
+  { id: 'bsa-value', label: 'Body surface area (Mosteller)', category: 'Pediatric & BSA', generate: bsaValue },
+
+  { id: 'reconstitution', label: 'Reconstitution (volume to draw)', category: 'Reconstitution', generate: reconstitution },
+
+  { id: 'alligation', label: 'Alligation (mixing two strengths)', category: 'Pharmacy calculations', generate: alligation },
+  { id: 'days-supply', label: 'Days supply', category: 'Pharmacy calculations', generate: daysSupply },
 ];
 
 // Ordered list of category names, derived from the registry.
