@@ -6,6 +6,7 @@ import {
   themeForMode,
 } from '../themes/themes.js';
 import { ALL_GENERATOR_IDS } from '../lib/generators/index.js';
+import { DEFAULT_ENABLED_TYPE_IDS } from '../lib/presets.js';
 
 const STORAGE_KEY = 'dosagecalc.settings';
 
@@ -14,7 +15,7 @@ const DEFAULT_SETTINGS = {
   lightTheme: DEFAULT_LIGHT_THEME,
   darkTheme: DEFAULT_DARK_THEME,
   maxAttempts: 3, // 0 means unlimited
-  enabledTypes: [...ALL_GENERATOR_IDS],
+  enabledTypes: [...DEFAULT_ENABLED_TYPE_IDS], // NCLEX / Med-Math preset by default
   weightedMode: false, // adaptive: bias selection toward missed types
 };
 

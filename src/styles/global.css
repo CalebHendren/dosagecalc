@@ -449,6 +449,15 @@ body {
   gap: 0.5rem;
   margin-top: 0.4rem;
 }
+.preset-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.preset-list .btn {
+  padding: 0.5rem 0.9rem;
+}
 .link-button {
   background: none;
   border: none;

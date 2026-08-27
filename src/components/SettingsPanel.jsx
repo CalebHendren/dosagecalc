@@ -1,11 +1,16 @@
 import { useSettings } from '../context/SettingsContext.jsx';
 import { GENERATORS, CATEGORIES } from '../lib/generators/index.js';
+import { PRESETS } from '../lib/presets.js';
 
 const ATTEMPT_OPTIONS = [1, 2, 3, 4, 5, 6, 8, 10];
 
 export default function SettingsPanel() {
   const { settings, update } = useSettings();
   const enabled = new Set(settings.enabledTypes);
+
+  // A preset is "active" when the enabled set matches its list exactly.
+  const presetActive = (preset) =>
+    preset.typeIds.length === enabled.size && preset.typeIds.every((id) => enabled.has(id));
 
   const setAttempts = (raw) => {
     const val = raw === 'unlimited' ? 0 : Number(raw);
@@ -78,6 +83,31 @@ export default function SettingsPanel() {
             often. Types you haven’t seen in a while gradually return. Your
             progress is remembered between sessions.
           </span>
+        </div>
+
+        {/* Presets */}
+        <div className="field">
+          <span id="presets-label" style={{ fontWeight: 600 }}>
+            Presets
+          </span>
+          <span className="hint">
+            Pick a preset for your exam or role, then mix and match individual
+            types below.
+          </span>
+          <div className="preset-list" role="group" aria-labelledby="presets-label">
+            {PRESETS.map((preset) => (
+              <button
+                key={preset.id}
+                type="button"
+                className={`btn ${presetActive(preset) ? 'btn-primary' : 'btn-secondary'}`}
+                aria-pressed={presetActive(preset)}
+                title={preset.description}
+                onClick={() => update({ enabledTypes: [...preset.typeIds] })}
+              >
+                {preset.name}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Problem types */}
