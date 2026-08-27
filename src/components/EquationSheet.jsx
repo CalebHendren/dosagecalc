@@ -39,7 +39,7 @@ const GROUPS = [
     ],
   },
   {
-    title: 'Dilution (V₁C₁ = V₂C₂)',
+    title: 'Dilution',
     rows: [
       ['Final strength', 'C₂ = (V₁ × C₁) ÷ V₂'],
       ['Diluent to add', 'Diluent = V₂ − V₁'],

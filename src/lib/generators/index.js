@@ -49,8 +49,8 @@ export const GENERATORS = [
   { id: 'mg-per-ml-from-ratio', label: 'Ratio → mg/mL', category: 'Ratios', generate: mgPerMlFromRatio },
   { id: 'ml-from-ratio-deliver-mg', label: 'mL of a ratio to deliver a dose', category: 'Ratios', generate: mlFromRatioToDeliverMg },
 
-  { id: 'dilution-final-pct', label: 'Final % after dilution', category: 'Dilution (V₁C₁ = V₂C₂)', generate: dilutionFinalPct },
-  { id: 'dilution-added-volume', label: 'Diluent needed to reach a %', category: 'Dilution (V₁C₁ = V₂C₂)', generate: dilutionAddedVolume },
+  { id: 'dilution-final-pct', label: 'Final % after dilution', category: 'Dilution', generate: dilutionFinalPct },
+  { id: 'dilution-added-volume', label: 'Diluent needed to reach a %', category: 'Dilution', generate: dilutionAddedVolume },
 
   { id: 'tablets-d-over-h', label: 'Tablets (Desired ÷ Have)', category: 'Clinical calculations', generate: tabletsDesiredOverHave },
   { id: 'liquid-d-over-h', label: 'Liquid dose (D ÷ H × Q)', category: 'Clinical calculations', generate: liquidDesiredOverHave },

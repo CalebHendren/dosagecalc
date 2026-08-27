@@ -45,7 +45,7 @@ as a desktop app with **Electron**.
 | Concentration & dosing | units/mL → volume, weight-based dose (units/kg), weight-based dose (mg/kg) |
 | Percentage strength | g in mL → %, mg/mL → %, mg in mL → %, ratio → %, mg of drug in a % solution, mg of drug in a ratio solution |
 | Ratios | mg in mL → ratio, reduce a ratio, % → ratio, ratio → mg/mL, mL of a ratio to deliver a dose |
-| Dilution (V₁C₁ = V₂C₂) | final % after dilution, diluent needed to reach a target % |
+| Dilution | final % after dilution, diluent needed to reach a target % |
 | Clinical calculations | tablets (Desired ÷ Have), liquid dose (D ÷ H × Q), IV rate (mL/hr), IV drip rate (gtt/min) |
 
 ## Accessibility

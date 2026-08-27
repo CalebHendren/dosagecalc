@@ -11,7 +11,7 @@ export function dilutionFinalPct() {
   const answer = (V1 * C1) / V2;
   return {
     type: 'dilution-final-pct',
-    category: 'Dilution (V₁C₁ = V₂C₂)',
+    category: 'Dilution',
     prompt: `${V1} mL of a ${C1}% solution is diluted with ${diluent} mL of diluent. What is the percentage strength of the final solution?`,
     roundingNote: 'Round to the nearest hundredth.',
     answer,
@@ -38,7 +38,7 @@ export function dilutionAddedVolume() {
   const answer = V2 - V1;
   return {
     type: 'dilution-added-volume',
-    category: 'Dilution (V₁C₁ = V₂C₂)',
+    category: 'Dilution',
     prompt: `${V1} mL of a ${C1}% solution is diluted to a final concentration of ${C2}%. How much diluent must be added?`,
     roundingNote: 'Round to the nearest hundredth.',
     answer,
