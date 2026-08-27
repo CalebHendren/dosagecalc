@@ -15,6 +15,7 @@ const DEFAULT_SETTINGS = {
   darkTheme: DEFAULT_DARK_THEME,
   maxAttempts: 3, // 0 means unlimited
   enabledTypes: [...ALL_GENERATOR_IDS],
+  weightedMode: false, // adaptive: bias selection toward missed types
 };
 
 function loadSettings() {

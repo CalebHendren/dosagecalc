@@ -750,6 +750,40 @@ body {
   }
 }
 
+/* ---- Milestone notice (100-streak dialog) ---- */
+.milestone-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.55);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+.milestone-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  padding: 2rem 1.75rem;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+}
+.milestone-emoji {
+  font-size: 3rem;
+  margin: 0 0 0.25rem;
+  line-height: 1;
+}
+.milestone-title {
+  margin: 0 0 0.6rem;
+  font-size: 1.5rem;
+}
+.milestone-body {
+  margin: 0 0 1.4rem;
+  color: var(--text-muted);
+}
+
 /* ---- Reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
   *,

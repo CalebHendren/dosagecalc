@@ -23,6 +23,7 @@ import {
   gttPerMin,
 } from './clinical.js';
 import { pick } from '../random.js';
+import { pickWeighted } from '../weighting.js';
 
 // The registry. Each entry has a stable `id` (used for the enabled-types
 // setting), a human `label`, its `category`, and a `generate` function that
@@ -74,15 +75,23 @@ export function getGenerator(id) {
 // Generate a problem from a random enabled generator. `enabledIds` is an array
 // of generator ids; anything unknown/empty falls back to the full set. A
 // `previousType` can be passed to avoid immediately repeating the same type
-// when more than one is enabled.
-export function generateProblem(enabledIds, previousType) {
+// when more than one is enabled. When a `weights` map (id → weight) is given,
+// the pick is biased by those weights ("weighted mode"); otherwise it is
+// uniform.
+export function generateProblem(enabledIds, previousType, weights) {
   let pool = GENERATORS.filter((g) => enabledIds?.includes(g.id));
   if (pool.length === 0) pool = GENERATORS;
   if (pool.length > 1 && previousType) {
     const filtered = pool.filter((g) => g.id !== previousType);
     if (filtered.length > 0) pool = filtered;
   }
-  const chosen = pick(pool);
+  let chosen;
+  if (weights) {
+    const id = pickWeighted(pool.map((g) => g.id), weights);
+    chosen = BY_ID.get(id) || pick(pool);
+  } else {
+    chosen = pick(pool);
+  }
   const problem = chosen.generate();
   problem.type = problem.type || chosen.id;
   problem.label = chosen.label;

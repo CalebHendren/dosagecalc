@@ -24,7 +24,11 @@ as a desktop app with **Electron**.
   **Daylight**, **Solarized Light**, and **GitHub Light** (light), with a
   Solarized Dark bonus. Follows the OS light/dark preference by default and
   remembers your choice.
-- **Session scoring** — solved count, accuracy, and streaks.
+- **Session scoring** — solved count, accuracy, and streaks (streaks persist
+  across visits, and a 100-answer streak earns a "you're competent" milestone).
+- **Weighted mode (optional)** — an adaptive setting that shows types you keep
+  getting right less often and ones you miss more often, letting unseen types
+  gradually return. Progress is remembered between sessions.
 - **XP & levels** — earn XP for each solve, boosted by your streak and reduced
   by failed attempts, and level up as you practice.
 - **Equation sheet** — a reference of every formula, on demand. Opening it
