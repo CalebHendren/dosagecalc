@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { XP_RULES, xpForSolve, levelProgress } from '../src/lib/xp.js';
+import { XP_RULES, xpForSolve, levelProgress, sheetCostForLevel } from '../src/lib/xp.js';
 
 test('first-try solve with no streak earns the base amount', () => {
   assert.equal(xpForSolve(0, 1), XP_RULES.base);
@@ -20,6 +20,15 @@ test('a streak adds a capped bonus', () => {
   assert.equal(xpForSolve(0, 3), XP_RULES.base + 2 * XP_RULES.streakBonus);
   // Very long streaks are capped.
   assert.equal(xpForSolve(0, 1000), XP_RULES.base + XP_RULES.streakBonusCap);
+});
+
+test('the equation-sheet cost rises with level', () => {
+  assert.equal(sheetCostForLevel(1), XP_RULES.sheetCost);
+  assert.equal(sheetCostForLevel(2), XP_RULES.sheetCost * 2);
+  assert.equal(sheetCostForLevel(5), XP_RULES.sheetCost * 5);
+  // Guards against a non-positive level.
+  assert.equal(sheetCostForLevel(0), XP_RULES.sheetCost);
+  assert.ok(sheetCostForLevel(3) > sheetCostForLevel(2));
 });
 
 test('level progress advances every perLevel XP', () => {
