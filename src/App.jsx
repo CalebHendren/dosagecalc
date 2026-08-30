@@ -9,7 +9,7 @@ import EquationSheet from './components/EquationSheet.jsx';
 import MilestoneNotice from './components/MilestoneNotice.jsx';
 import { useSettings } from './context/SettingsContext.jsx';
 import { useProblem } from './hooks/useProblem.js';
-import { XP_RULES, xpForSolve } from './lib/xp.js';
+import { xpForSolve, levelProgress, sheetCostForLevel } from './lib/xp.js';
 
 const INITIAL_SCORE = {
   attempted: 0,
@@ -139,7 +139,10 @@ export default function App() {
             onReveal={reveal}
             onNew={newProblem}
           />
-          <EquationSheet cost={XP_RULES.sheetCost} onReference={onReferenceSheet} />
+          <EquationSheet
+            cost={sheetCostForLevel(levelProgress(score.xp).level)}
+            onReference={onReferenceSheet}
+          />
           <SettingsPanel />
         </main>
         <Footer />

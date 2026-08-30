@@ -30,6 +30,13 @@ export function xpForSolve(failedAttempts, streakAfter) {
   return solve + bonus;
 }
 
+// XP cost to reference the equation sheet, scaled by level: the further you
+// progress, the more a peek costs. Level 1 costs the base; each level adds
+// another base's worth.
+export function sheetCostForLevel(level) {
+  return XP_RULES.sheetCost * Math.max(1, level);
+}
+
 // Level and progress toward the next level for a given total XP.
 export function levelProgress(xp) {
   const safe = Math.max(0, xp);
