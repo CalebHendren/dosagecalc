@@ -85,6 +85,23 @@ export default function SettingsPanel() {
           </span>
         </div>
 
+        {/* Distractor mode */}
+        <div className="field">
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              checked={!!settings.distractorMode}
+              onChange={(e) => update({ distractorMode: e.target.checked })}
+            />
+            <span>Distractor mode</span>
+          </label>
+          <span className="hint">
+            Adds realistic details that aren’t needed for the calculation (such
+            as allergies, vital signs, or a drop factor on an mL/hr problem), as
+            exam questions often do. The worked solution lists what to ignore.
+          </span>
+        </div>
+
         {/* Presets */}
         <div className="field">
           <span id="presets-label" style={{ fontWeight: 600 }}>

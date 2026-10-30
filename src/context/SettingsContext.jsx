@@ -17,6 +17,7 @@ const DEFAULT_SETTINGS = {
   maxAttempts: 3, // 0 means unlimited
   enabledTypes: [...DEFAULT_ENABLED_TYPE_IDS], // NCLEX / Med-Math preset by default
   weightedMode: false, // adaptive: bias selection toward missed types
+  distractorMode: false, // add irrelevant details to each problem's prompt
 };
 
 function loadSettings() {

@@ -115,6 +115,7 @@ export default function App() {
     settings.maxAttempts,
     { onSolved, onExhausted },
     settings.weightedMode,
+    settings.distractorMode,
   );
 
   return (

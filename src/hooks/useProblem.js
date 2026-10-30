@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { generateProblem } from '../lib/generators/index.js';
 import { checkAnswer } from '../lib/checkAnswer.js';
 import { updateWeights } from '../lib/weighting.js';
+import { addDistractors } from '../lib/distractors.js';
 
 const WEIGHTS_KEY = 'dosagecalc.weights';
 
@@ -28,7 +29,9 @@ function saveWeights(weights) {
 // `handlers` may provide onSolved / onExhausted, fired once per conclusion.
 // When `weighted` is true, the next problem's type is biased by per-type
 // weights that shift as the user gets each type right or wrong (see weighting.js).
-export function useProblem(enabledTypes, maxAttempts, handlers = {}, weighted = false) {
+// When `distractors` is true, each problem gets irrelevant details added to its
+// prompt (see distractors.js).
+export function useProblem(enabledTypes, maxAttempts, handlers = {}, weighted = false, distractors = false) {
   const prevTypeRef = useRef(null);
   const handlersRef = useRef(handlers);
   handlersRef.current = handlers;
@@ -56,8 +59,8 @@ export function useProblem(enabledTypes, maxAttempts, handlers = {}, weighted = 
       weightedRef.current ? weightsRef.current : undefined,
     );
     prevTypeRef.current = p.type;
-    return p;
-  }, [enabledTypes]);
+    return distractors ? addDistractors(p) : p;
+  }, [enabledTypes, distractors]);
 
   const [problem, setProblem] = useState(make);
   const [attemptsUsed, setAttemptsUsed] = useState(0);
@@ -71,8 +74,9 @@ export function useProblem(enabledTypes, maxAttempts, handlers = {}, weighted = 
     setLastResult(null);
   }, [make]);
 
-  // Regenerate when the enabled set changes so the shown problem stays in-scope.
-  const enabledKey = enabledTypes.join('|');
+  // Regenerate when the enabled set changes so the shown problem stays in-scope,
+  // and when distractor mode is toggled so the change shows right away.
+  const enabledKey = `${enabledTypes.join('|')}#${distractors ? 'd' : ''}`;
   const firstRun = useRef(true);
   useEffect(() => {
     if (firstRun.current) {

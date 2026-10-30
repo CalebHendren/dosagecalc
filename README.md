@@ -33,6 +33,10 @@ as a desktop app with **Electron**.
 - **Weighted mode (optional)** — an adaptive setting that shows types you keep
   getting right less often and ones you miss more often, letting unseen types
   gradually return. Progress is remembered between sessions.
+- **Distractor mode (optional)** — adds realistic details that the calculation
+  doesn't need (allergies, vital signs, labs, a drop factor on an mL/hr problem,
+  refills on a days-supply problem, and so on), as exam questions often do. The
+  worked solution starts by listing what to ignore.
 - **XP & levels** — earn XP for each solve, boosted by your streak and reduced
   by failed attempts, and level up as you practice.
 - **Equation sheet** — a reference of every formula, on demand. Opening it
@@ -134,6 +138,7 @@ src/
   lib/
     random.js, format.js   Number helpers
     checkAnswer.js         Tolerant answer grading
+    distractors.js         Irrelevant details for distractor mode
     generators/            One module per problem category + a registry
 test/                      Generator + answer-checking unit tests
 ```
