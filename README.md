@@ -35,7 +35,10 @@ as a desktop app with **Electron**.
   gradually return. Progress is remembered between sessions.
 - **Distractor mode (optional)** — adds realistic details that the calculation
   doesn't need (allergies, vital signs, labs, a drop factor on an mL/hr problem,
-  refills on a days-supply problem, and so on), as exam questions often do. The
+  refills on a days-supply problem, and so on), as exam questions often do.
+  Details are worked into the problem's own sentences ("The patient, aged 67,
+  weighs 154 lb.", "a 20% solution (lot 4821K)", "ordered as 100 mg every 6
+  hours") or dropped in at random points, so there's no fixed spot to skip. The
   worked solution starts by listing what to ignore.
 - **XP & levels** — earn XP for each solve, boosted by your streak and reduced
   by failed attempts, and level up as you practice.

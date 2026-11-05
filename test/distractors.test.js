@@ -23,9 +23,15 @@ test('distractors keep the original prompt and answer', () => {
     for (let i = 0; i < RUNS; i++) {
       const p = make(gen);
       const d = addDistractors(p);
+      // Taking out exactly what was inserted gives back the original prompt
+      // (up to the first letter of a sentence an opening clause was put on).
       let rest = d.prompt;
-      for (const sentence of d.distractors) rest = rest.replace(`${sentence} `, '');
-      assert.equal(rest, p.prompt, `${gen.id} keeps its prompt`);
+      for (const text of d.distractorInsertions) {
+        assert.ok(rest.includes(text), `${gen.id} inserted "${text}"`);
+        rest = rest.replace(text, '');
+      }
+      assert.equal(rest.toLowerCase(), p.prompt.toLowerCase(), `${gen.id} keeps its prompt`);
+      assert.equal(d.distractorInsertions.length, d.distractors.length, `${gen.id} one insertion each`);
       assert.ok(d.distractors.length >= 1 && d.distractors.length <= 3, `${gen.id} count`);
       assert.equal(new Set(d.distractors).size, d.distractors.length, `${gen.id} no repeats`);
       assert.equal(d.answer, p.answer, `${gen.id} answer unchanged`);
@@ -47,6 +53,39 @@ test('distractors never duplicate data the problem uses', () => {
       }
       if (gen.id === 'temperature') assert.ok(!/°[CF]/.test(d), 'temperature got a temperature');
       if (gen.id === 'gtt-per-min') assert.ok(!/gtt/.test(d), 'gtt-per-min got a drop factor');
+    }
+  }
+});
+
+test('distractors are not always at the start of the prompt', () => {
+  for (const gen of GENERATORS) {
+    const p0 = make(gen);
+    // A one-sentence prompt with nowhere to weave has only one place to put them.
+    if (!/[.?] [A-Z]/.test(p0.prompt) && !/patient|child|solution|tablets|vial|drip|supplied|ordered/i.test(p0.prompt)) continue;
+    let elsewhere = 0;
+    for (let i = 0; i < RUNS; i++) {
+      const p = make(gen);
+      const d = addDistractors(p, 1);
+      // Opening the prompt as its own sentence is the easy-to-skip spot.
+      if (!d.prompt.startsWith(`${d.distractors[0]} `)) elsewhere++;
+    }
+    assert.ok(elsewhere > RUNS / 4, `${gen.id}: only ${elsewhere}/${RUNS} placed past the opening`);
+  }
+});
+
+test('woven clauses read as part of the sentence', () => {
+  for (const gen of GENERATORS) {
+    for (let i = 0; i < RUNS; i++) {
+      const d = addDistractors(make(gen), 3);
+      assert.ok(!/  |\( |,\.| ,|\.\./.test(d.prompt), `${gen.id} spacing: ${d.prompt}`);
+      // A woven clause introduces the patient at most once.
+      assert.ok((d.prompt.match(/\b[Ff]or a (patient|child)\b/g) || []).length <= 1, `${gen.id}: ${d.prompt}`);
+      // No sentence comes between a sentence and one that refers back to it.
+      for (const text of d.distractors) {
+        for (const next of ['It ', 'This ', 'That ', 'Express this ']) {
+          assert.ok(!d.prompt.includes(`${text} ${next}`), `${gen.id}: ${d.prompt}`);
+        }
+      }
     }
   }
 });
